@@ -9,16 +9,26 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DefineNewLocationController">
    <children>
-      <TextField layoutX="138.0" layoutY="108.0" prefHeight="27.0" prefWidth="177.0" />
-      <TextArea layoutX="138.0" layoutY="181.0" prefHeight="75.0" prefWidth="177.0" />
+      <TextField fx:id="locationNameInputField" layoutX="181.0" layoutY="108.0" prefHeight="27.0" prefWidth="177.0" />
+      <TextArea fx:id="locationDescriptionInputField" layoutX="181.0" layoutY="181.0" prefHeight="75.0" prefWidth="177.0" />
       <Label layoutX="106.0" layoutY="35.0" text="Define a New Location">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="20.0" layoutY="100.0" prefHeight="43.0" prefWidth="83.0" text="Location Name" wrapText="true" />
-      <Label layoutX="14.0" layoutY="181.0" prefHeight="27.0" prefWidth="112.0" text="Location Description" wrapText="true" />
-      <Button layoutX="269.0" layoutY="283.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="155.0" layoutY="283.0" mnemonicParsing="false" onAction="#showHomeOp" text="Return Home" />
+      <Label layoutX="54.0" layoutY="100.0" prefHeight="43.0" prefWidth="83.0" text="Location Name" wrapText="true" />
+      <Label layoutX="39.0" layoutY="181.0" prefHeight="27.0" prefWidth="112.0" text="Location Description" wrapText="true" />
+      <Button layoutX="304.0" layoutY="283.0" mnemonicParsing="false" onAction="#saveLocationOp" text="Save" />
+      <Button layoutX="181.0" layoutY="283.0" mnemonicParsing="false" onAction="#showHomeOp" text="Return Home" />
+      <Label layoutX="39.0" layoutY="108.0" text="*" textFill="#8893b2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="alertMessage" layoutX="121.0" layoutY="320.0" prefHeight="53.0" prefWidth="159.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

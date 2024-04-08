@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 public class MainController {
-
+	
 	@FXML HBox mainBox;
 	@FXML AnchorPane contentPage;
 
@@ -21,12 +21,11 @@ public class MainController {
 			
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			
-			//clear the content area and replace it with the define new category page
+			//Clear the home page content area and replace it with the define new category page
 			contentPage.getChildren().clear();
 			contentPage.getChildren().add(pane1);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -40,12 +39,11 @@ public class MainController {
 			
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			
-			//clear the content area and replace it with the define new category page
+			//Clear the home page content area and replace it with the define new location page
 			contentPage.getChildren().clear();
 			contentPage.getChildren().add(pane1);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

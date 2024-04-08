@@ -21,10 +21,8 @@ import javafx.scene.control.Label;
 
 public class DefineNewCategoryController {
 	
-	
-
 	@FXML AnchorPane mainPane;
-	@FXML TextField inputField;
+	@FXML TextField categoryNameInputField;
 	@FXML Label alertMessage;
 
 	@FXML public void showHomeOp() {
@@ -35,7 +33,7 @@ public class DefineNewCategoryController {
 			
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			
-			//clear the content area and replace it with the home content
+			//Clear the define category content and replace it with the home content
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(pane1);
 			
@@ -46,29 +44,35 @@ public class DefineNewCategoryController {
 	}
 
 	@FXML public void saveCategoryOp() {
-		String categoryName = inputField.getText();
+		//Grab the text from the input field and store it into a string
+		String categoryName = categoryNameInputField.getText();
+		/*If the category was not empty, then clear the input field, display a success message,
+		 and call the function to store the string into the Category.csv file*/
 		if(!categoryName.isEmpty()) {
-			inputField.setText("");
+			categoryNameInputField.setText("");
 			alertMessage.setText("");
 			displaySuccess();
 			storeToFile(categoryName);
+		//If category was empty, print out an error message for the user
 		}else {
 			displayError();
+			//Debugging
 			System.out.println("empty input");
 		}
 	}
 	
 	private void storeToFile(String categoryName) {
-		File dirf = new File("/Users/justintran/eclipse-workspace/CS151TermProject/data/");
+	
+		File dirf = new File("data/");
 		File categoryFile = new File(dirf, "Category.csv");
 		
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(categoryFile,true))){
 			
-			
+			/*Initialize categoryID to 0, but increase it by 1 whenever the reader finds a non-null line
+			in the Category.csv file.*/
 			int categoryID = 0;
 			if(categoryFile.exists()) {
 				try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
-					
 					while(reader.readLine() != null) {
 						categoryID++;
 					}
@@ -79,11 +83,14 @@ public class DefineNewCategoryController {
 					System.out.println(e.getMessage());
 				}
 			}
-						
+			
+			//Create string representing the new category.
 			String newCategory = "\n" + categoryID + "," + categoryName;
 			
+			//Write the new category into the Category.csv file
 			writer.write(newCategory);
 			
+			//Debugging
 			System.out.println("Succesful save");
 			
 		} catch (FileNotFoundException e) {
@@ -94,11 +101,13 @@ public class DefineNewCategoryController {
 	}
 	
 	private void displayError() {
+		//Clear current alert label then display an error message
 		alertMessage.setText("");
 		alertMessage.setText("Fields marked with an * must be filled!");
 	}
 	
 	private void displaySuccess() {
+		//Clear current label then display a success message
 		alertMessage.setText("");
 		alertMessage.setText("Category saved succesfully!");
 	}
