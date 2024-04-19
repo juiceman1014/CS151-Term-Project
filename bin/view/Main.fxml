@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
-            <Button layoutX="12.0" layoutY="114.0" mnemonicParsing="false" onAction="#showDefineNewCategoryOp" prefHeight="27.0" prefWidth="163.0" text="Define New Category" />
+            <Button layoutX="18.0" layoutY="75.0" mnemonicParsing="false" onAction="#showDefineNewCategoryOp" prefHeight="27.0" prefWidth="163.0" text="Define New Category" />
             <Label layoutX="40.0" layoutY="28.0" text="Where's My?">
                <font>
                   <Font size="15.0" />
@@ -21,7 +21,9 @@
                <image>
                   <Image url="@../../../../Downloads/magnifyingGlassIcon_transparent.png" />
                </image></ImageView>
-            <Button layoutX="14.0" layoutY="163.0" mnemonicParsing="false" onAction="#showDefineNewLocationOp" prefHeight="27.0" prefWidth="163.0" text="Define New Location" />
+            <Button layoutX="18.0" layoutY="125.0" mnemonicParsing="false" onAction="#showDefineNewLocationOp" prefHeight="27.0" prefWidth="163.0" text="Define New Location" />
+            <Button layoutX="18.0" layoutY="175.0" mnemonicParsing="false" onAction="#showDefineNewAssetOp" prefHeight="27.0" prefWidth="163.0" text="Define New Asset" />
+            <Button layoutX="18.0" layoutY="225.0" mnemonicParsing="false" onAction="#showManageAssetsOp" prefHeight="27.0" prefWidth="163.0" text="Manage Assets" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="contentPage" prefHeight="400.0" prefWidth="402.0" style="-fx-background-color: white;">

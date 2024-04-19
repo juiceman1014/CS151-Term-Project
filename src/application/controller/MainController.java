@@ -49,5 +49,41 @@ public class MainController {
 		
 		
 	}
+
+	@FXML public void showDefineNewAssetOp() {
+		
+		URL url = getClass().getClassLoader().getResource("view/DefineNewAsset.fxml");
+		
+		try {
+			
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			
+			//Clear the home page content area and replace it with the define new location page
+			contentPage.getChildren().clear();
+			contentPage.getChildren().add(pane1);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+	public void showManageAssetsOp() {
+		URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the manage category page
+			contentPage.getChildren().clear();
+			contentPage.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 }

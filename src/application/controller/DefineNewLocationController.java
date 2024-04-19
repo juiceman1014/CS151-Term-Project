@@ -12,6 +12,7 @@ import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
@@ -45,6 +46,10 @@ public class DefineNewLocationController {
 		//Store user inputs into their respective variables
 		String locationName = locationNameInputField.getText();
 		String locationDescription = locationDescriptionInputField.getText();
+		
+		if(locationDescription.isEmpty()) {
+			locationDescription = "N/A";
+		}
 		/*If the location name input is not empty, clear all input fields, print a success message, and
 		 * save their location name and their location description into the Location.csv file*/
 		if(!locationName.isEmpty()) {
@@ -102,12 +107,14 @@ public class DefineNewLocationController {
 		//Clear current alert label and display an error message
 		alertMessage.setText("");
 		alertMessage.setText("Fields marked with an * must be filled!");
+		alertMessage.setTextFill(Color.RED);
 	}
 	
 	private void displaySuccess() {
 		//Clear current alert label and display a success message
 		alertMessage.setText("");
 		alertMessage.setText("Category saved succesfully!");
+		alertMessage.setTextFill(Color.RED);
 	}
 	
 

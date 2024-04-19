@@ -10,6 +10,7 @@ import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
 
 
@@ -104,12 +105,14 @@ public class DefineNewCategoryController {
 		//Clear current alert label then display an error message
 		alertMessage.setText("");
 		alertMessage.setText("Fields marked with an * must be filled!");
+		alertMessage.setTextFill(Color.RED);
 	}
 	
 	private void displaySuccess() {
 		//Clear current label then display a success message
 		alertMessage.setText("");
 		alertMessage.setText("Category saved succesfully!");
+		alertMessage.setTextFill(Color.RED);
 	}
 
 	
