@@ -3,7 +3,6 @@ package application.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -47,6 +46,26 @@ public class ManageAssetsController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@FXML
+	private void showEditAssetOp()
+	{
+		URL url = getClass().getClassLoader().getResource("view/EditAsset.fxml");
+		
+		try 
+		{
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			
+			//Clear the define location content and replace it with home content
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+			
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

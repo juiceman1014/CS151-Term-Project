@@ -1,2 +1,3 @@
 AssetID,Name,Category,Location,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
-1,Car1,Cat1,Loc1,N/A,N/A,N/A,N/A
+1,Car1,Cat2,Loc3,2024-04-18,Lambo,1 milly,2024-04-18
+2,Car3,Cat2,Loc4,2024-04-18,Lambo,1 milly,2024-04-18

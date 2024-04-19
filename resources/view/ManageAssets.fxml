@@ -33,5 +33,11 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="160.0" layoutY="235.0" mnemonicParsing="false" onAction="#showEditAssetOp" text="Edit Asset" />
+      <Label fx:id="alertMessage" layoutX="147.0" layoutY="271.0" prefHeight="64.0" prefWidth="106.0" textAlignment="CENTER" wrapText="true">
+      	<font>
+      		<Font size="18.0" />
+      	</font>
+      </Label>
    </children>
 </AnchorPane>
