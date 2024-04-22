@@ -33,7 +33,11 @@ public class EditAssetController
 	@FXML DatePicker assetWarrantyExpDateInput;
 	@FXML Label alertMessage;
 	
-	int assetId = 2;
+	
+	UserSearchPick userSearchPick = UserSearchPick.getInstance();
+	
+	private int assetID;
+	
 	
 	@FXML public void showManageAssetsOp() {
 		URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
@@ -56,6 +60,7 @@ public class EditAssetController
 	{
 		populateDropdownList(catDropdownList,"data/Category.csv",1);
 		populateDropdownList(locDropdownList,"data/Location.csv",1);
+		
 		
 		setInitialVals();
 	}
@@ -128,6 +133,19 @@ public class EditAssetController
 			assetWarrantyExpDateInput.setValue(null);
 			displaySuccess();
 			storeToFile(assetName, assetCategory, assetLocation, assetPurchaseDate, assetDescription, assetPurchasedValue, assetWarrantyExpDate);
+			URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
+
+			try {
+
+				AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+				// Clear the home page content area and replace it with the manage category page
+				mainPane.getChildren().clear();
+				mainPane.getChildren().add(pane1);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		else 
 		{
@@ -166,6 +184,7 @@ public class EditAssetController
 	
 	private void setInitialVals()
 	{
+		String searchedAssetName = userSearchPick.getSearchPick();
 		File dirf = new File("data/");
 		File assetFile = new File(dirf, "Asset.csv");
 		
@@ -178,9 +197,10 @@ public class EditAssetController
 				while((readLine = reader.readLine()) != null) 
 				{
 					String[] lineSplit= readLine.split(",");
-					int tempId = Integer.parseInt(lineSplit[0].trim());
-					if (assetId == tempId)
+					String tempName = lineSplit[1].trim();
+					if (searchedAssetName.equals(tempName))
 					{
+						assetID = Integer.parseInt(lineSplit[0]);
 						assetNameInput.setText(lineSplit[1].trim());
 						catDropdownList.setValue(lineSplit[2].trim());
 						locDropdownList.setValue(lineSplit[3].trim());
@@ -210,9 +230,11 @@ public class EditAssetController
 	
 	private void storeToFile(String assetName, String assetCategory, String assetLocation, String assetPurchaseDate, String assetDescription, String assetPurchasedValue,  String assetWarrantyExpDate)
 	{
+		
 		File dirf = new File("data/");
 		File assetFile = new File(dirf, "Asset.csv");
 		File tempFile = new File(dirf, "temp.csv");
+		System.out.println("Store to file debug (a): " + assetName);
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(assetFile)); BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile)))
 		{
@@ -222,10 +244,13 @@ public class EditAssetController
 			while ((readLine = reader.readLine()) != null) 
 			{
 				String[] asset = readLine.split(",");
-				if (Integer.parseInt(asset[0]) == assetId)
+				
+				if (Integer.parseInt(asset[0]) == assetID)
 				{
-					String editedAsset = "\n" + assetId + "," + assetName + "," + assetCategory + "," + assetLocation + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
+					String editedAsset = "\n" + asset[0] + "," + assetName + "," + assetCategory + "," + assetLocation + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
+					System.out.println(editedAsset);
 					writer.write(editedAsset);
+					setInitialVals();
 				}
 				else
 				{
@@ -246,6 +271,7 @@ public class EditAssetController
 		tempFile.delete();
 		setInitialVals();
 	}
+	
 	
 	private void displayError() {
 		//Clear current alert label and display an error message

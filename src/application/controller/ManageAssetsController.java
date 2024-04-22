@@ -8,12 +8,15 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -28,6 +31,11 @@ public class ManageAssetsController {
 	TextField searchAssetInput;
 	@FXML
 	Label alertMessage;
+	@FXML
+	private ListView<String> searchResultsList;
+	
+	UserSearchPick userSearchPick = UserSearchPick.getInstance();
+	
 
 	@FXML
 	public void showHomeOp() {
@@ -67,10 +75,19 @@ public class ManageAssetsController {
 			e.printStackTrace();
 		}
 	}
+	
+	@FXML public void initialize() {
+		userSearchPick.setSearchPick("");
+	}
+	
 
 	@FXML
 	private void deleteAsset() {
 		String assetName = searchAssetInput.getText();
+		if(assetName.isEmpty()) {
+			displayDeletionError();
+			return;
+		}
 		String csvFile = "data/Asset.csv";
 		String tempCsv = "data/temp.csv";
 
@@ -95,7 +112,7 @@ public class ManageAssetsController {
 			//copy the content in temp.csv to Asset.csv
 			Files.copy(Paths.get(tempCsv), Paths.get(csvFile), StandardCopyOption.REPLACE_EXISTING);
 			System.out.println("File replaced successfully.");
-			displaySuccess();
+			displayDeletionSuccess();
 		} catch (IOException e) {
 			System.out.println("Error replacing original file: " + e.getMessage());
 		}
@@ -106,19 +123,64 @@ public class ManageAssetsController {
 			System.out.println("Error deleting temp file.");
 		}
 	}
+	
+	@FXML
+	private void searchAssets() {
+	    String searchQuery = searchAssetInput.getText().toLowerCase();
+	    String csvFile = "data/Asset.csv";
+	    List<String> searchResults = new ArrayList<>();
 
-	private void displayError() {
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        String line;
+	        br.readLine();
+
+	        while ((line = br.readLine()) != null) {
+	            String[] asset = line.split(",");
+	       
+	            if (asset.length > 1 && asset[1].toLowerCase().contains(searchQuery)) {
+	                searchResults.add(asset[1]); 
+	            }
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        alertMessage.setText("Error: Unable to read the asset file.");
+	        alertMessage.setTextFill(Color.RED);
+	    }
+
+	    //display search result
+
+	    if (searchResults.isEmpty()) {
+	        alertMessage.setText("No assets found.");
+	        alertMessage.setTextFill(Color.RED);
+	    } else {
+	    	searchResultsList.getItems().clear(); // Clear previous results
+	        searchResultsList.getItems().addAll(searchResults);
+	    }
+	}
+	
+	//save the clicked asset in the list into the search bar
+	@FXML public void saveSearchPick() {
+		String searchPick = searchResultsList.getSelectionModel().getSelectedItem();
+		if(searchPick != null) {
+			searchAssetInput.setText(searchPick);
+			userSearchPick.setSearchPick(searchPick);
+		}
+	}
+	
+	private void displayDeletionError() {
 		// Clear current alert label then display an error message
 		alertMessage.setText("");
-		alertMessage.setText("Fields marked with an * must be filled!");
+		alertMessage.setText("No assets were deleted!");
 		alertMessage.setTextFill(Color.RED);
 	}
-
-	private void displaySuccess() {
+	
+	private void displayDeletionSuccess() {
 		// Clear current label then display a success message
 		alertMessage.setText("");
 		alertMessage.setText("Asset deleted succesfully!");
 		alertMessage.setTextFill(Color.RED);
 	}
+
+	
 
 }

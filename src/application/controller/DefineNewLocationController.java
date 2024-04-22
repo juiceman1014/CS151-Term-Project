@@ -67,15 +67,15 @@ public class DefineNewLocationController {
 	
 	private void storeToFile(String locationName, String locationDescription) {
 		File dirf = new File("data/");
-		File categoryFile = new File(dirf, "Location.csv");
+		File locationFile = new File(dirf, "Location.csv");
 		
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(categoryFile,true))){
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(locationFile,true))){
 			
 			/*Initialize locationID to 0, but increase it by 1 whenever the reader finds a non-null line
 			in the Location.csv file.*/
 			int locationID = 0;
-			if(categoryFile.exists()) {
-				try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
+			if(locationFile.exists()) {
+				try(BufferedReader reader = new BufferedReader(new FileReader(locationFile))){
 					while(reader.readLine() != null) {
 						locationID++;
 					}

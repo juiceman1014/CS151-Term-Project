@@ -134,15 +134,15 @@ public class DefineNewAssetController {
 	
 	private void storeToFile(String name, String category, String location, String purchaseDate, String description, String purchasedValue, String warrantyExpDate) {
 		File dirf = new File("data/");
-		File categoryFile = new File(dirf, "Asset.csv");
+		File assetFile = new File(dirf, "Asset.csv");
 		
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(categoryFile,true))){
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(assetFile,true))){
 			
 			/*Initialize assetID to 0, but increase it by 1 whenever the reader finds a non-null line
 			in the Asset.csv file.*/
 			int assetID = 0;
-			if(categoryFile.exists()) {
-				try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
+			if(assetFile.exists()) {
+				try(BufferedReader reader = new BufferedReader(new FileReader(assetFile))){
 					while(reader.readLine() != null) {
 						assetID++;
 					}
