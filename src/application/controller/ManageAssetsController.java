@@ -97,8 +97,11 @@ public class ManageAssetsController {
 
 			while ((line = br.readLine()) != null) {
 				String[] asset = line.split(",");
+				//If asset is the one you want to delete, replace it with an empty line
+				if (asset.length > 1 && asset[1].equals(assetName)) {
+					bw.newLine();
 				// Write to the temp file if the asset is not the one you want to delete.
-				if (!asset[1].equals(assetName)) {
+				}else {
 					bw.write(line);
 					bw.newLine();
 				}

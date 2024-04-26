@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,9 @@ public class DefineNewAssetController {
 	@FXML TextArea assetDescriptionInput;
 	@FXML TextField assetPurchasedValueInput;
 	@FXML Label alertMessage;
+	
+	private int categoryID;
+	private int locationID;
 	
 	
 
@@ -134,41 +138,68 @@ public class DefineNewAssetController {
 	
 	private void storeToFile(String name, String category, String location, String purchaseDate, String description, String purchasedValue, String warrantyExpDate) {
 		File dirf = new File("data/");
-		File assetFile = new File(dirf, "Asset.csv");
+		File assetFile = new File(dirf,"Asset.csv");
+		ArrayList<String> assetCSVContent = new ArrayList<>();
+		int emptyLineIndex = -1;
+		int assetID;
+		String newAsset;
 		
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(assetFile,true))){
-			
-			/*Initialize assetID to 0, but increase it by 1 whenever the reader finds a non-null line
-			in the Asset.csv file.*/
-			int assetID = 0;
-			if(assetFile.exists()) {
-				try(BufferedReader reader = new BufferedReader(new FileReader(assetFile))){
-					while(reader.readLine() != null) {
-						assetID++;
-					}
-				}catch(FileNotFoundException e) {
-					System.out.println(e.getMessage());
-				}
-				catch(IOException e) {
-					System.out.println(e.getMessage());
-				}
+		if(assetFile.exists()) {
+			//read through lines of current asset file and add them to the assetCSVContent ArrayList
+			try(BufferedReader reader = new BufferedReader(new FileReader(assetFile))) {
+				String line;
+				while((line = reader.readLine()) != null) {
+					assetCSVContent.add(line);
 			}
-			
-			//Create string representing the new asset
-			String newAsset = "\n" + assetID + "," + name + "," + category + "," + location + "," + purchaseDate + "," + description + "," + purchasedValue + "," + warrantyExpDate;
-			
-			//Write the new asset to the Asset.csv file
-			writer.write(newAsset);
-			
-			//Debugging
-			System.out.println("Succesful save");
-			
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch(IOException e) {
+			} catch(FileNotFoundException e) {
+				System.out.println(e.getMessage());
+			} catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	
+		//parse through the array list and search for an empty line. immediately break the for loop if one is found.
+		//empty lines are a result of the delete asset calls.
+		for(int i = 1; i < assetCSVContent.size(); i++) {
+			if(assetCSVContent.get(i).isEmpty()) {
+				emptyLineIndex = i;
+				break;
+			}
+		}
+		
+		//if no empty line was found from the previous for loop, the new asset will receive an ID corresponding to the last line of the csv file.
+		if(emptyLineIndex == -1) {
+			assetID = assetCSVContent.size();
+			newAsset = assetID + "," + name + "," + getCategoryID(category) + "," + getLocationID(location) + "," + purchaseDate + "," + description + "," + purchasedValue + "," + warrantyExpDate;
+		//otherwise the correctID corresponds to where the empty line is located.
+		}else {
+			assetID = emptyLineIndex;
+			newAsset = assetID + "," + name + "," + getCategoryID(category) + "," + getLocationID(location) + "," + purchaseDate + "," + description + "," + purchasedValue + "," + warrantyExpDate;
+		}
+		
+		//if emptyLineIndex != -1, that means an empty line was found and so we fill in the empty line with the new asset
+		if(emptyLineIndex != -1) {
+			assetCSVContent.set(emptyLineIndex, newAsset);
+		//otherwise append the asset to the end of the file as there is no empty line to fill.
+		}else {
+			assetCSVContent.add(newAsset);
+		}
+		
+		//Overwrite the Asset.csv file with the assetCSVContent array list.
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(assetFile, false))) {
+			for(String line : assetCSVContent) {
+				writer.write(line);
+				writer.newLine();
+			}
+		}catch(FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
+		catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
+	
 	
 	private void displayError() {
 		//Clear current alert label and display an error message
@@ -182,6 +213,67 @@ public class DefineNewAssetController {
 		alertMessage.setText("");
 		alertMessage.setText("Category saved succesfully!");
 		alertMessage.setTextFill(Color.RED);
+	}
+	
+	//get category ID from the category name
+	private int getCategoryID(String categoryName) {
+		
+		File dirf = new File("data/");
+		File categoryFile = new File(dirf, "Category.csv");
+		
+		if(categoryFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
+				String line;
+				reader.readLine();
+				//while line isn't empty
+				while((line = reader.readLine()) != null) {
+					//create a string called category which creates different sections with the comma delimiter
+					String[] category = line.split(",");
+					//if section 1 (the category's name) matches the category name argument, the program has found the matching ID number
+					if(category[1].equals(categoryName)) {
+						categoryID = Integer.parseInt(category[0]);
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		System.out.println("categoryID: " + categoryID);
+		return categoryID;
+		
+	}
+	
+	//get location ID from the location name
+	private int getLocationID(String locationName) {
+		
+		File dirf = new File("data/");
+		File locationFile = new File(dirf, "Location.csv");
+		
+		if(locationFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(locationFile))){
+				String line;
+				reader.readLine();
+				while((line = reader.readLine()) != null) {
+					String[] location = line.split(",");
+					if(location[1].equals(locationName)) {
+						locationID = Integer.parseInt(location[0]);
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		System.out.println("locationID: " + locationID);
+		return locationID;
+		
 	}
 
 }

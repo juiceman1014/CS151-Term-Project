@@ -32,11 +32,16 @@ public class EditAssetController
 	@FXML TextField assetPurchasedValueInput;
 	@FXML DatePicker assetWarrantyExpDateInput;
 	@FXML Label alertMessage;
-	
-	
+
 	UserSearchPick userSearchPick = UserSearchPick.getInstance();
 	
+	private String categoryName;
+	private String locationName;
 	private int assetID;
+	private int categoryID;
+	private int locationID;
+	private String tempName;
+	
 	
 	
 	@FXML public void showManageAssetsOp() {
@@ -197,13 +202,15 @@ public class EditAssetController
 				while((readLine = reader.readLine()) != null) 
 				{
 					String[] lineSplit= readLine.split(",");
-					String tempName = lineSplit[1].trim();
+					if(lineSplit.length > 1) {
+						tempName = lineSplit[1].trim();
+					}
 					if (searchedAssetName.equals(tempName))
 					{
 						assetID = Integer.parseInt(lineSplit[0]);
 						assetNameInput.setText(lineSplit[1].trim());
-						catDropdownList.setValue(lineSplit[2].trim());
-						locDropdownList.setValue(lineSplit[3].trim());
+						catDropdownList.setValue(getCategoryName(Integer.parseInt(lineSplit[2].trim())));
+						locDropdownList.setValue(getLocationName(Integer.parseInt(lineSplit[3].trim())));
 						if (!lineSplit[4].trim().equals("N/A"))
 						{
 							assetPurchaseDateInput.setValue(dateFormatter(lineSplit[4].trim()));
@@ -234,7 +241,6 @@ public class EditAssetController
 		File dirf = new File("data/");
 		File assetFile = new File(dirf, "Asset.csv");
 		File tempFile = new File(dirf, "temp.csv");
-		System.out.println("Store to file debug (a): " + assetName);
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(assetFile)); BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile)))
 		{
@@ -247,8 +253,7 @@ public class EditAssetController
 				
 				if (Integer.parseInt(asset[0]) == assetID)
 				{
-					String editedAsset = "\n" + asset[0] + "," + assetName + "," + assetCategory + "," + assetLocation + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
-					System.out.println(editedAsset);
+					String editedAsset = "\n" + asset[0] + "," + assetName + "," + getCategoryID(assetCategory) + "," + getLocationID(assetLocation) + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
 					writer.write(editedAsset);
 					setInitialVals();
 				}
@@ -286,6 +291,126 @@ public class EditAssetController
 		alertMessage.setText("Asset edit saved succesfully!");
 		alertMessage.setTextFill(Color.RED);
 	}
+	
+	//get category name from the category ID
+	private String getCategoryName(int categoryID) {
+		
+		File dirf = new File("data/");
+		File categoryFile = new File(dirf, "Category.csv");
+		
+		if(categoryFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
+				String line;
+				reader.readLine();
+				//while line isn't empty
+				while((line = reader.readLine()) != null) {
+					//create a category string that has different sections based on the comma delimiter
+					String[] category = line.split(",");
+					//if this category's ID matches the ID passed into the method, the matching category name has been found
+					if(Integer.parseInt(category[0]) == categoryID) {
+						categoryName = category[1];
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		return categoryName;
+		
+	}
+	
+	//get location name from the location ID
+	private String getLocationName(int locationID) {
+		
+		File dirf = new File("data/");
+		File locationFile = new File(dirf, "Location.csv");
+		
+		if(locationFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(locationFile))){
+				String line;
+				reader.readLine();
+				while((line = reader.readLine()) != null) {
+					String[] location = line.split(",");
+					if(Integer.parseInt(location[0]) == locationID) {
+						locationName = location[1];
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		return locationName;
+		
+	}
+	
+	//get category ID from the category name
+	private int getCategoryID(String categoryName) {
+		
+		File dirf = new File("data/");
+		File categoryFile = new File(dirf, "Category.csv");
+		
+		if(categoryFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(categoryFile))){
+				String line;
+				reader.readLine();
+				//while line isn't empty
+				while((line = reader.readLine()) != null) {
+					//create a string named category that creates different sections using the "," delimiter
+					String[] category = line.split(",");
+					//if section 1 of the category string equals the category name that was passed into the method, the matching ID has been found.
+					if(category[1].equals(categoryName)) {
+						categoryID = Integer.parseInt(category[0]);
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		return categoryID;
+		
+	}
+	
+	//get location ID from the location name
+	private int getLocationID(String locationName) {
+		
+		File dirf = new File("data/");
+		File locationFile = new File(dirf, "Location.csv");
+		
+		if(locationFile.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(locationFile))){
+				String line;
+				reader.readLine();
+				while((line = reader.readLine()) != null) {
+					String[] location = line.split(",");
+					if(location[1].equals(locationName)) {
+						locationID = Integer.parseInt(location[0]);
+					}
+				}
+			}catch(FileNotFoundException e) {
+					System.out.println(e.getMessage());
+			}
+			catch(IOException e) {
+					System.out.println(e.getMessage());
+			}
+		}
+		
+		return locationID;
+		
+	}
+	
+	
 
 	
 }

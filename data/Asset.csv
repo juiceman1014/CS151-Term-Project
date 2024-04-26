@@ -1,4 +1,1 @@
-AssetID,Name,Category,Location,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
-1,Car1,Cat1,Loc1,N/A,N/A,N/A,N/A
-2,Car5,Cat2,Loc2,N/A,N/A,N/A,N/A
-3,Car10,Cat3,Loc3,2024-04-20,N/A,N/A,2024-04-20
+AssetID,Name,CategoryID,LocationID,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
