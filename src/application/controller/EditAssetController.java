@@ -8,9 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -244,11 +241,10 @@ public class EditAssetController
 	private void storeToFile(String assetName, String assetCategory, String assetLocation, String assetPurchaseDate, String assetDescription, String assetPurchasedValue,  String assetWarrantyExpDate)
 	{
 		
-//		File dirf = new File("data/");
-//		File assetFile = new File(dirf, "Asset.csv");
-//		File tempFile = new File(dirf, "temp.csv");
-		String assetFile = "data/Asset.csv";
-		String tempFile = "data/temp.csv";
+		File dirf = new File("data/");
+		File assetFile = new File(dirf, "Asset.csv");
+		File tempFile = new File(dirf, "temp.csv");
+		
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(assetFile)); BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile)))
 		{
@@ -258,8 +254,11 @@ public class EditAssetController
 			while ((readLine = reader.readLine()) != null) 
 			{
 				String[] asset = readLine.split(",");
-				
-				if (asset.length > 1 && Integer.parseInt(asset[0]) == assetID)
+				if (asset[0].isEmpty())
+				{
+					writer.newLine();
+				}
+				else if (Integer.parseInt(asset[0]) == assetID)
 				{
 					String editedAsset = "\n" + asset[0] + "," + assetName + "," + getCategoryID(assetCategory) + "," + getLocationID(assetLocation) + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
 					writer.write(editedAsset);
@@ -280,23 +279,9 @@ public class EditAssetController
 			System.out.println(e.getMessage());
 		}
 		
-//		tempFile.renameTo(assetFile);
-//		tempFile.delete();
 		
-		try {
-			//copy the content in temp.csv to Asset.csv
-			Files.copy(Paths.get(tempFile), Paths.get(assetFile), StandardCopyOption.REPLACE_EXISTING);
-			System.out.println("File replaced successfully.");
-		} catch (IOException e) {
-			System.out.println("Error replacing original file: " + e.getMessage());
-		}
-
-		// Delete temp.csv file
-		File deleteFile = new File(tempFile);
-		if (!deleteFile.delete()) {
-			System.out.println("Error deleting temp file.");
-		}
-		
+		assetFile.delete();
+		tempFile.renameTo(assetFile);
 		setInitialVals();
 	}
 	
