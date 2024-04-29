@@ -2,5 +2,5 @@ AssetID,Name,CategoryID,LocationID,PurchaseDate,Description,PurchasedValue,Warra
 1,necklace,1,1,2024-04-28,Blue,123123,2024-04-30
 2,a2,1,2,N/A,N/A,N/A,N/A
 
-4,a6,1,2,N/A,N/A,N/A,N/A
-5,a5,1,2,N/A,N/A,N/A,N/A
+4,shirt,1,2,N/A,N/A,N/A,N/A
+5,asset,1,2,N/A,N/A,N/A,N/A
