@@ -68,7 +68,9 @@ public class DefineNewAssetController {
 			reader.readLine();
 			while((line = reader.readLine()) != null) {
 				String[] columns = line.split(",");
-				dropdownList.getItems().add(columns[headerIndex].trim());	
+				if(columns.length > 1) {
+					dropdownList.getItems().add(columns[headerIndex].trim());	
+				}
 			}
 		} catch(FileNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -211,7 +213,7 @@ public class DefineNewAssetController {
 	private void displaySuccess() {
 		//Clear current alert label and display a success message
 		alertMessage.setText("");
-		alertMessage.setText("Category saved succesfully!");
+		alertMessage.setText("Asset saved succesfully!");
 		alertMessage.setTextFill(Color.RED);
 	}
 	
@@ -230,7 +232,7 @@ public class DefineNewAssetController {
 					//create a string called category which creates different sections with the comma delimiter
 					String[] category = line.split(",");
 					//if section 1 (the category's name) matches the category name argument, the program has found the matching ID number
-					if(category[1].equals(categoryName)) {
+					if(category.length > 1 && category[1].equals(categoryName)) {
 						categoryID = Integer.parseInt(category[0]);
 					}
 				}
@@ -259,7 +261,7 @@ public class DefineNewAssetController {
 				reader.readLine();
 				while((line = reader.readLine()) != null) {
 					String[] location = line.split(",");
-					if(location[1].equals(locationName)) {
+					if(location.length > 1 && location[1].equals(locationName)) {
 						locationID = Integer.parseInt(location[0]);
 					}
 				}

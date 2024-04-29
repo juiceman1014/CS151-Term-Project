@@ -144,7 +144,7 @@ public class EditAssetController
 
 				AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 
-				// Clear the home page content area and replace it with the manage category page
+				// Clear the edit asset page content area and replace it with the manage category page
 				mainPane.getChildren().clear();
 				mainPane.getChildren().add(pane1);
 
@@ -167,7 +167,9 @@ public class EditAssetController
 			while((line = reader.readLine()) != null) 
 			{
 				String[] columns = line.split(",");
+				if(columns.length > 1) {
 				dropdownList.getItems().add(columns[headerIndex].trim());	
+				}
 			}
 		}
 		catch(FileNotFoundException e) 
@@ -204,24 +206,25 @@ public class EditAssetController
 					String[] lineSplit= readLine.split(",");
 					if(lineSplit.length > 1) {
 						tempName = lineSplit[1].trim();
-					}
-					if (searchedAssetName.equals(tempName))
-					{
-						assetID = Integer.parseInt(lineSplit[0]);
-						assetNameInput.setText(lineSplit[1].trim());
-						catDropdownList.setValue(getCategoryName(Integer.parseInt(lineSplit[2].trim())));
-						locDropdownList.setValue(getLocationName(Integer.parseInt(lineSplit[3].trim())));
-						if (!lineSplit[4].trim().equals("N/A"))
+						if (searchedAssetName.equals(tempName))
 						{
-							assetPurchaseDateInput.setValue(dateFormatter(lineSplit[4].trim()));
-						}
-						assetDescriptionInput.setText(lineSplit[5].trim());
-						assetPurchasedValueInput.setText(lineSplit[6].trim());
-						if (!lineSplit[7].trim().equals("N/A"))
-						{
-							assetWarrantyExpDateInput.setValue(dateFormatter(lineSplit[7].trim()));
+							assetID = Integer.parseInt(lineSplit[0]);
+							assetNameInput.setText(lineSplit[1].trim());
+							catDropdownList.setValue(getCategoryName(Integer.parseInt(lineSplit[2].trim())));
+							locDropdownList.setValue(getLocationName(Integer.parseInt(lineSplit[3].trim())));
+							if (!lineSplit[4].trim().equals("N/A"))
+							{
+								assetPurchaseDateInput.setValue(dateFormatter(lineSplit[4].trim()));
+							}
+							assetDescriptionInput.setText(lineSplit[5].trim());
+							assetPurchasedValueInput.setText(lineSplit[6].trim());
+							if (!lineSplit[7].trim().equals("N/A"))
+							{
+								assetWarrantyExpDateInput.setValue(dateFormatter(lineSplit[7].trim()));
+							}
 						}
 					}
+					
 				}
 			}
 			catch(FileNotFoundException e) 
@@ -251,7 +254,7 @@ public class EditAssetController
 			{
 				String[] asset = readLine.split(",");
 				
-				if (Integer.parseInt(asset[0]) == assetID)
+				if (asset.length > 1 && Integer.parseInt(asset[0]) == assetID)
 				{
 					String editedAsset = "\n" + asset[0] + "," + assetName + "," + getCategoryID(assetCategory) + "," + getLocationID(assetLocation) + "," + assetPurchaseDate + "," + assetDescription + "," + assetPurchasedValue + "," + assetWarrantyExpDate;
 					writer.write(editedAsset);
@@ -307,7 +310,7 @@ public class EditAssetController
 					//create a category string that has different sections based on the comma delimiter
 					String[] category = line.split(",");
 					//if this category's ID matches the ID passed into the method, the matching category name has been found
-					if(Integer.parseInt(category[0]) == categoryID) {
+					if(category.length > 1 && Integer.parseInt(category[0]) == categoryID) {
 						categoryName = category[1];
 					}
 				}
@@ -335,7 +338,7 @@ public class EditAssetController
 				reader.readLine();
 				while((line = reader.readLine()) != null) {
 					String[] location = line.split(",");
-					if(Integer.parseInt(location[0]) == locationID) {
+					if(location.length > 1 && Integer.parseInt(location[0]) == locationID) {
 						locationName = location[1];
 					}
 				}
@@ -366,7 +369,7 @@ public class EditAssetController
 					//create a string named category that creates different sections using the "," delimiter
 					String[] category = line.split(",");
 					//if section 1 of the category string equals the category name that was passed into the method, the matching ID has been found.
-					if(category[1].equals(categoryName)) {
+					if(category.length > 1 && category[1].equals(categoryName)) {
 						categoryID = Integer.parseInt(category[0]);
 					}
 				}
@@ -394,7 +397,7 @@ public class EditAssetController
 				reader.readLine();
 				while((line = reader.readLine()) != null) {
 					String[] location = line.split(",");
-					if(location[1].equals(locationName)) {
+					if(location.length > 1 && location[1].equals(locationName)) {
 						locationID = Integer.parseInt(location[0]);
 					}
 				}

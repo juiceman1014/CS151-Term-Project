@@ -125,6 +125,20 @@ public class ManageAssetsController {
 		if (!tempFile.delete()) {
 			System.out.println("Error deleting temp file.");
 		}
+		
+		URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the edit asset page content area and replace it with the manage category page
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML

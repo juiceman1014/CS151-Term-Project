@@ -113,7 +113,7 @@ public class DefineNewLocationController {
 	private void displaySuccess() {
 		//Clear current alert label and display a success message
 		alertMessage.setText("");
-		alertMessage.setText("Category saved succesfully!");
+		alertMessage.setText("Location saved succesfully!");
 		alertMessage.setTextFill(Color.RED);
 	}
 	
