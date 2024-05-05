@@ -25,6 +25,7 @@
             <Button layoutX="18.0" layoutY="125.0" mnemonicParsing="false" onAction="#showDefineNewLocationOp" prefHeight="27.0" prefWidth="163.0" text="Define New Location" />
             <Button layoutX="18.0" layoutY="175.0" mnemonicParsing="false" onAction="#showDefineNewAssetOp" prefHeight="27.0" prefWidth="163.0" text="Define New Asset" />
             <Button layoutX="18.0" layoutY="225.0" mnemonicParsing="false" onAction="#showManageAssetsOp" prefHeight="27.0" prefWidth="163.0" text="Manage Assets" />
+            <Button layoutX="18.0" layoutY="275.0" mnemonicParsing="false" onAction="#showExpiredWarrantyAssetsOp" prefHeight="27.0" prefWidth="163.0" text="Expired Warranty Assets" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="contentPage" prefHeight="400.0" prefWidth="402.0" style="-fx-background-color: white;">
