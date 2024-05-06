@@ -10,8 +10,10 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.ListView;
 import java.time.LocalDate;
+import javafx.scene.control.Label;
 
 public class ExpiredWarrantyAssetsController {
 	
@@ -19,6 +21,8 @@ public class ExpiredWarrantyAssetsController {
 	@FXML ListView<String> assetsList;
 	private LocalDate warrantyDate;
 	
+	UserSearchPick userAssetPick = UserSearchPick.getInstance();
+	@FXML Label dateToday;
 
 	@FXML public void showHomeOp() {
 		URL url = getClass().getClassLoader().getResource("view/HomeContent.fxml");
@@ -36,9 +40,30 @@ public class ExpiredWarrantyAssetsController {
 		}
 	}
 	
+	@FXML
+	private void showEditAssetOp()
+	{
+		URL url = getClass().getClassLoader().getResource("view/EditAsset.fxml");
+		
+		try 
+		{
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+			
+			//Clear the define location content and replace it with home content
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+			
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML public void initialize() 
 	{
 		displayExpiredAssets();
+		displayDateToday();
 		
 	}
 	
@@ -64,7 +89,7 @@ public class ExpiredWarrantyAssetsController {
 		        }
 	       
 	            if (asset.length > 1 && warrantyDate.isBefore(today)) {
-	                expiredAssets.add(asset[1]); 
+	                expiredAssets.add(asset[1] + ": " + asset[7]); 
 	            }
 	        }
 	    } catch (IOException e) {
@@ -79,6 +104,34 @@ public class ExpiredWarrantyAssetsController {
 	        assetsList.getItems().addAll(expiredAssets);
 	    }
 	    
+	}
+
+	@FXML public void saveAssetPick() {
+		
+		String assetPick = assetsList.getSelectionModel().getSelectedItem();
+		
+		if(assetPick != null) {
+			
+			//find the index of the colon
+			int colonIndex = assetPick.indexOf(":");
+			
+			if(colonIndex != -1) {
+				//only keep the content of the string before the colon
+				assetPick = assetPick.substring(0,colonIndex);
+				System.out.println(assetPick);
+			}
+			
+			//save the asset the user clicked on
+			userAssetPick.setSearchPick(assetPick);
+			System.out.println(userAssetPick.getSearchPick());
+			showEditAssetOp();
+		}
+	}
+	
+	private void displayDateToday() {
+		LocalDate today = LocalDate.now();
+		dateToday.setText("");
+		dateToday.setText("Today's date: " + today.toString());
 	}
 	
 
