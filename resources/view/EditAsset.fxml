@@ -30,7 +30,7 @@
       <DatePicker fx:id="assetWarrantyExpDateInput" layoutX="157.0" layoutY="303.0" />
       <TextArea fx:id="assetDescriptionInput" layoutX="157.0" layoutY="203.0" prefHeight="27.0" prefWidth="231.0" />
       <TextField fx:id="assetPurchasedValueInput" layoutX="157.0" layoutY="255.0" />
-      <Button layoutX="263.0" layoutY="352.0" mnemonicParsing="false" onAction="#showManageAssetsOp" text="Return" />
+      <Button layoutX="263.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnLocOp" text="Return" />
       <Button layoutX="328.0" layoutY="352.0" mnemonicParsing="false" onAction="#saveEditAssetOp" text="Save" />
       <Label fx:id="alertMessage" layoutX="24.0" layoutY="340.0" prefHeight="51.0" prefWidth="196.0" textAlignment="CENTER" wrapText="true">
          <font>

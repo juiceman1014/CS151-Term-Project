@@ -78,6 +78,7 @@ public class ManageAssetsController {
 	
 	@FXML public void initialize() {
 		userSearchPick.setSearchPick("");
+		userSearchPick.setSource("");
 	}
 	
 
@@ -181,6 +182,7 @@ public class ManageAssetsController {
 		if(searchPick != null) {
 			searchAssetInput.setText(searchPick);
 			userSearchPick.setSearchPick(searchPick);
+			userSearchPick.setSource("manage");
 		}
 	}
 	

@@ -42,9 +42,21 @@ public class EditAssetController
 	private int locationID;
 	private String tempName;
 	
+	@FXML public void returnLocOp()
+	{
+		String source = userSearchPick.getSource();
+		
+		if(source.equals("expired"))
+		{
+			showExpiredWarrantyAssetsOp();
+		}
+		else
+		{
+			showManageAssetsOp();
+		}
+	}
 	
-	
-	@FXML public void showManageAssetsOp() {
+	public void showManageAssetsOp() {
 		URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
 
 		try {
@@ -59,6 +71,24 @@ public class EditAssetController
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void showExpiredWarrantyAssetsOp() {
+		
+		URL url = getClass().getClassLoader().getResource("view/ExpiredWarrantyAssets.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the expired warranty assets page
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@FXML public void initialize() 
@@ -138,7 +168,13 @@ public class EditAssetController
 			assetWarrantyExpDateInput.setValue(null);
 			displaySuccess();
 			storeToFile(assetName, assetCategory, assetLocation, assetPurchaseDate, assetDescription, assetPurchasedValue, assetWarrantyExpDate);
+			
 			URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
+			
+			if (userSearchPick.getSource().equals("expired"))
+			{
+				url = getClass().getClassLoader().getResource("view/ExpiredWarrantyAssets.fxml");
+			}
 
 			try {
 

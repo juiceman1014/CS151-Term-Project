@@ -1,7 +1,6 @@
 AssetID,Name,CategoryID,LocationID,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
-1,ring,1,1,2024-04-28,Blue,123123,2024-04-30
-2,ring,1,2,N/A,N/A,N/A,N/A
-3,a,1,2,N/A,N/A,N/A,N/A
-4,shirt,1,2,N/A,N/A,N/A,N/A
-5,rolexrolex,1,1,2024-04-28,Blue,123123,2024-04-30
-6,a,2,1,N/A,N/A,N/A,N/A
+1,rolex,1,2,N/A,N/A,N/A,2024-05-05
+
+3,a3,1,2,N/A,N/A,N/A,2024-05-17
+
+

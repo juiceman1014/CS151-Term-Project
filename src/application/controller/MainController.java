@@ -7,13 +7,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Button;
 
 public class MainController {
 	
 	@FXML HBox mainBox;
 	@FXML AnchorPane contentPage;
 	
+	@FXML public void initialize()
+	{
+		FindExpiredWarrantyAssets findExpired = new FindExpiredWarrantyAssets();
+		boolean result = findExpired.isExpiredWarranty();
+		
+		if (result)
+		{
+			showExpiredWarrantyAssetsWarning();
+		}
+	}
 
 	@FXML public void showDefineNewCategoryOp() {
 		
@@ -104,6 +113,23 @@ public class MainController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void showExpiredWarrantyAssetsWarning()
+	{
+		URL url = getClass().getClassLoader().getResource("view/ExpiredWarrantyAssetsWarning.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the expired warranty assets warning page
+			contentPage.getChildren().clear();
+			contentPage.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
