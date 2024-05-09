@@ -44,16 +44,7 @@ public class EditAssetController
 	
 	@FXML public void returnLocOp()
 	{
-		String source = userSearchPick.getSource();
-		
-		if(source.equals("expired"))
-		{
-			showExpiredWarrantyAssetsOp();
-		}
-		else
-		{
 			showManageAssetsOp();
-		}
 	}
 	
 	public void showManageAssetsOp() {

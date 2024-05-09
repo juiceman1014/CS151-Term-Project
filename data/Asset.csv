@@ -1,6 +1,4 @@
 AssetID,Name,CategoryID,LocationID,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
-1,rolex,1,2,N/A,N/A,N/A,2024-05-05
+1,Rolex,1,1,2024-05-07,Blue,121212,2024-05-07
 
-3,a3,1,2,N/A,N/A,N/A,2024-05-17
-
-
+3,a3,1,2,N/A,N/A,N/A,2024-05-07

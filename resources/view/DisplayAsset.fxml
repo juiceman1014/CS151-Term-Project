@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DisplayAssetController">
+   <children>
+      <Label layoutX="143.0" layoutY="14.0" text="Display Asset">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="55.0" text="Name" />
+      <Label layoutX="42.0" layoutY="95.0" text="Category" />
+      <Label layoutX="42.0" layoutY="135.0" text="Location" />
+      <Label layoutX="42.0" layoutY="175.0" text="Purchase Date" />
+      <Label layoutX="42.0" layoutY="215.0" text="Description" />
+      <Label layoutX="42.0" layoutY="255.0" text="Purchased Value" textFill="#070707" />
+      <Label layoutX="42.0" layoutY="295.0" prefHeight="42.0" prefWidth="92.0" text="Waranty Expiration Date" wrapText="true" />
+      <Button layoutX="280.0" layoutY="352.0" mnemonicParsing="false" onAction="#returnLocOp" text="Return" />
+      <Label layoutX="28.0" layoutY="45.0" text="*" textFill="#8893b2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="85.0" text="*" textFill="#8893b2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="125.0" text="*" textFill="#8893b2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="assetName" layoutX="157.0" layoutY="55.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetCategory" layoutX="157.0" layoutY="95.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetLocation" layoutX="157.0" layoutY="135.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetPurchaseDate" layoutX="157.0" layoutY="175.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetDescription" layoutX="157.0" layoutY="215.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetPurchasedValue" layoutX="157.0" layoutY="255.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+      <Label fx:id="assetExpiration" layoutX="157.0" layoutY="308.0" prefHeight="17.0" prefWidth="150.0" text="N/A" />
+   </children>
+</AnchorPane>

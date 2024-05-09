@@ -13,7 +13,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="40.0" layoutY="163.0" text="New Category:" />
+      <Label layoutX="40.0" layoutY="163.0" text="New Category" />
       <TextField fx:id="categoryNameInputField" layoutX="126.0" layoutY="157.0" prefHeight="27.0" prefWidth="204.0" />
       <Button layoutX="284.0" layoutY="214.0" mnemonicParsing="false" onAction="#saveCategoryOp" text="Save" />
       <Button layoutX="179.0" layoutY="214.0" mnemonicParsing="false" onAction="#showHomeOp" text="Return Home" />

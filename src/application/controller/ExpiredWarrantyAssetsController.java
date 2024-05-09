@@ -40,9 +40,9 @@ public class ExpiredWarrantyAssetsController {
 	}
 	
 	@FXML
-	private void showEditAssetOp()
+	private void showDisplayAssetOp()
 	{
-		URL url = getClass().getClassLoader().getResource("view/EditAsset.fxml");
+		URL url = getClass().getClassLoader().getResource("view/DisplayAsset.fxml");
 		
 		try 
 		{
@@ -124,7 +124,7 @@ public class ExpiredWarrantyAssetsController {
 			userAssetPick.setSearchPick(assetPick);
 			userAssetPick.setSource("expired");
 			System.out.println(userAssetPick.getSearchPick());
-			showEditAssetOp();
+			showDisplayAssetOp();
 		}
 	}
 	
