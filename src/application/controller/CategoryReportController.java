@@ -239,10 +239,7 @@ public class CategoryReportController {
 	}
 
 	@FXML public void returnLocOp() {
-		String source = userAssetPick.getSource();
-		if(source.equals("reportsPage")) {
-			showReportsPageOp();
-		}
+		showReportsPageOp();
 	}
 
 }

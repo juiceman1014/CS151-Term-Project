@@ -170,11 +170,11 @@ public class MainController {
 	            if(asset.length > 1 && !asset[7].equals("N/A")) {
 		            warrantyDate = LocalDate.parse(asset[7]);
 		            System.out.println(asset[1]+": " + warrantyDate);
+		            if (asset.length > 1 && warrantyDate.isBefore(today)) {
+		                return true; 
+		            }
 		        }
-	       
-	            if (asset.length > 1 && warrantyDate.isBefore(today)) {
-	                return true; 
-	            }
+	           
 	        }
 	        
 	        return false;

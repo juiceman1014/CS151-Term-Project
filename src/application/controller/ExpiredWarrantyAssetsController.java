@@ -30,7 +30,7 @@ public class ExpiredWarrantyAssetsController {
 			
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			
-			//Clear the define asset content and replace it with the home content
+			//Clear the expired warranty asset content and replace it with the home content
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(pane1);
 			
@@ -48,7 +48,7 @@ public class ExpiredWarrantyAssetsController {
 		{
 			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
 			
-			//Clear the define location content and replace it with home content
+			//Clear the expired warranty asset content and replace it with display asset content
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(pane1);
 			
@@ -85,11 +85,10 @@ public class ExpiredWarrantyAssetsController {
 	            if(asset.length > 1 && !asset[7].equals("N/A")) {
 		            warrantyDate = LocalDate.parse(asset[7]);
 		            System.out.println(asset[1]+": " + warrantyDate);
-		        }
-	       
-	            if (asset.length > 1 && warrantyDate.isBefore(today)) {
-	                expiredAssets.add(asset[1] + ": " + asset[7]); 
-	            }
+		            if (asset.length > 1 && warrantyDate.isBefore(today)) {
+		                expiredAssets.add(asset[1] + ": " + asset[7]); 
+		            }
+		        }  
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
