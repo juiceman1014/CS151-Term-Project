@@ -1,4 +1,6 @@
 AssetID,Name,CategoryID,LocationID,PurchaseDate,Description,PurchasedValue,WarrantyExpDate
-1,Rolex,1,1,2024-05-07,Blue,121212,2024-05-07
+1,Rolex,1,1,2024-05-05,Blue,156,2024-05-09
 
-3,a3,1,2,N/A,N/A,N/A,2024-05-07
+
+4,Black Tuxedo Vest,2,3,2024-05-08,N/A,800,2024-06-08
+5,Graduation Suit,2,2,2024-04-28,N/A,100,2024-07-26

@@ -18,14 +18,15 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <ImageView fitHeight="54.0" fitWidth="40.0" layoutX="133.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="27.0" fitWidth="23.0" layoutX="133.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Downloads/magnifyingGlassIcon_transparent.png" />
+                  <Image url="@../image/projectLogo.png" />
                </image></ImageView>
             <Button layoutX="18.0" layoutY="125.0" mnemonicParsing="false" onAction="#showDefineNewLocationOp" prefHeight="27.0" prefWidth="163.0" text="Define New Location" />
             <Button layoutX="18.0" layoutY="175.0" mnemonicParsing="false" onAction="#showDefineNewAssetOp" prefHeight="27.0" prefWidth="163.0" text="Define New Asset" />
             <Button layoutX="18.0" layoutY="225.0" mnemonicParsing="false" onAction="#showManageAssetsOp" prefHeight="27.0" prefWidth="163.0" text="Manage Assets" />
             <Button layoutX="18.0" layoutY="275.0" mnemonicParsing="false" onAction="#showExpiredWarrantyAssetsOp" prefHeight="27.0" prefWidth="163.0" text="Expired Warranty Assets" />
+            <Button layoutX="18.0" layoutY="326.0" mnemonicParsing="false" onAction="#showReportsOp" prefHeight="25.0" prefWidth="163.0" text="Reports" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="contentPage" prefHeight="400.0" prefWidth="402.0" style="-fx-background-color: white;">
@@ -35,11 +36,16 @@
                   <Font size="15.0" />
                </font></Label>
             <Label layoutX="78.0" layoutY="181.0" prefHeight="53.0" prefWidth="252.0" text="Please use the navigation bar on the left to access our application's features!" textAlignment="CENTER" wrapText="true" />
-            <ImageView fitHeight="60.0" fitWidth="53.0" layoutX="175.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="53.0" fitWidth="49.0" layoutX="177.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Downloads/magnifyingGlassIcon_transparent.png" />
+                  <Image url="@../image/projectLogo.png" />
                </image>
             </ImageView>
+            <Label layoutX="63.0" layoutY="355.0" text="Credit to @Samuel1983 at pixabay for the magnifying glass image">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
    </children>
 </HBox>

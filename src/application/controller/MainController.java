@@ -1,7 +1,10 @@
 package application.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +18,7 @@ public class MainController {
 	
 	@FXML public void initialize()
 	{
-		FindExpiredWarrantyAssets findExpired = new FindExpiredWarrantyAssets();
-		boolean result = findExpired.isExpiredWarranty();
+		boolean result = isExpiredWarranty();
 		
 		if (result)
 		{
@@ -115,6 +117,24 @@ public class MainController {
 		
 	}
 	
+	@FXML public void showReportsOp() {
+
+		URL url = getClass().getClassLoader().getResource("view/Reports.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the expired warranty assets page
+			contentPage.getChildren().clear();
+			contentPage.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
 	public void showExpiredWarrantyAssetsWarning()
 	{
 		URL url = getClass().getClassLoader().getResource("view/ExpiredWarrantyAssetsWarning.fxml");
@@ -130,6 +150,39 @@ public class MainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean isExpiredWarranty() {
+	    
+	    String csvFile = "data/Asset.csv";
+	    LocalDate today = LocalDate.now();
+		System.out.println("Today's date is " + today);
+		LocalDate warrantyDate = today;
+
+	    try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+	        String line;
+	        br.readLine();
+
+	        while ((line = br.readLine()) != null) {
+	        	
+	            String[] asset = line.split(",");
+	            
+	            if(asset.length > 1 && !asset[7].equals("N/A")) {
+		            warrantyDate = LocalDate.parse(asset[7]);
+		            System.out.println(asset[1]+": " + warrantyDate);
+		        }
+	       
+	            if (asset.length > 1 && warrantyDate.isBefore(today)) {
+	                return true; 
+	            }
+	        }
+	        
+	        return false;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	    
 	}
 	
 }

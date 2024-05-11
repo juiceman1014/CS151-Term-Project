@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ReportsController">
+   <children>
+      <Label layoutX="161.0" layoutY="14.0" text="Reports">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="92.0" layoutY="162.0" mnemonicParsing="false" onAction="#showCategoryReportsOp" prefHeight="39.0" prefWidth="80.0" text="Category" />
+      <Button layoutX="230.0" layoutY="162.0" mnemonicParsing="false" onAction="#showLocationReportsOp" prefHeight="39.0" prefWidth="80.0" text="Location" />
+      <Label layoutX="106.0" layoutY="121.0" prefHeight="20.0" prefWidth="188.0" text="Show all Assets according to:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="220.0" layoutY="285.0" mnemonicParsing="false" onAction="#showHomeOp" text="Return Home" />
+   </children>
+</AnchorPane>

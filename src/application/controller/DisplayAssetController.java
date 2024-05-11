@@ -47,6 +47,38 @@ public class DisplayAssetController {
 		
 	}
 	
+	public void showLocationReportOp() {
+		URL url = getClass().getClassLoader().getResource("view/LocationReport.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the expired warranty assets page
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showCategoryReportOp() {
+		URL url = getClass().getClassLoader().getResource("view/CategoryReport.fxml");
+
+		try {
+
+			AnchorPane pane1 = (AnchorPane) FXMLLoader.load(url);
+
+			// Clear the home page content area and replace it with the expired warranty assets page
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(pane1);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML public void returnLocOp()
 	{
 		String source = userSearchPick.getSource();
@@ -54,6 +86,13 @@ public class DisplayAssetController {
 		if(source.equals("expired"))
 		{
 			showExpiredWarrantyAssetsOp();
+		}else if(source.equals("category-report")) 
+		{
+			showCategoryReportOp();
+		}
+		else if(source.equals("location-report")) 
+		{
+			showLocationReportOp();
 		}
 		
 	}

@@ -42,12 +42,7 @@ public class EditAssetController
 	private int locationID;
 	private String tempName;
 	
-	@FXML public void returnLocOp()
-	{
-			showManageAssetsOp();
-	}
-	
-	public void showManageAssetsOp() {
+	@FXML public void showManageAssetsOp() {
 		URL url = getClass().getClassLoader().getResource("view/ManageAssets.fxml");
 
 		try {
